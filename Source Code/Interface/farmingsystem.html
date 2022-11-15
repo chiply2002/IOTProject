@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+	  <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+	  <meta http-equiv="Access-Control-Allow-Origin" content="*">
+     
+       <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+
+      <title>Smart Farming System</title>
+      <style>	
+		th {
+			font-size: 1.5em;
+			background-color:lightblue;
+		}
+		
+		.icon {                     
+			width: 250px;
+			height: 250px;
+		}
+		
+		.button {
+			border: none;
+			color: white;
+			text-align: center;
+			text-decoration: none;
+			display: inline-block;
+			font-size: 16px;
+			margin: 4px 2px;
+			padding: 10px 10px;
+			cursor: pointer;
+			border-radius: 12px;
+		}
+		
+		button:hover {
+			opacity: 0.5
+		}
+		
+		.buttonON {
+			background-color: #4CAF50;
+		}
+		
+		.buttonOFF {
+			float:right;
+			background-color: #f44336;
+		}
+		
+	</style>
+   </head>
+<body style="background-color:snow;">
+   <header style="background-color:steelblue;">
+		<p style="font-family: Courier; color:white; font-size:40px; padding-left:10px;">SWE30011 - Group 02 IoT Project</p>
+	</header>
+	
+	<center>
+		<h1 style="font-family: Helvetica;color: black;">SMART FARMING SYSTEM</h1>
+	</center>
+	
+   <div class="center">
+		<div class="form">
+	       <form action="" method="get">
+				<center><input type="text" id="ip" class="ip" placeholder="CONTROL ACTUATORS"></input><br></center>
+
+				<br><br>
+				<div style="float:left; padding-left:20%">
+					<img src="fan.png" class="icon">
+					<p><h2>Fan: </h2></P>
+	         	<button type="button" id="D1-on" class="button buttonON" >FAN ON</button>
+					<button type="button" id="D1-off" class="button buttonOFF" >FAN OFF</button>
+					<br>
+				</div>
+
+				<div style="float:right; padding-right:20%">	
+					<img src="water.png" class="icon">
+					<p><h2>Water pump: </h2></P>
+					<button type="button" id="D2-on" class="button buttonON" >PUMP ON</button>
+					<button type="button" id="D2-off" class="button buttonOFF" >PUMP OFF</button>
+					<br>
+				</div>
+			
+      	</form>
+			<br><br>
+	 	</div>
+	</div>
+
+	<div style="clear:both; padding-top:30px">
+		<table border=2 bordercolor="#0000FF" align="center" >
+		<tr>
+			<td colspan="2" style="background-color: #76a0ef;">
+				<h1 align="center" >Data Collection Dashboard</h1>
+			</td>
+		</tr>
+		
+		<tr>
+			<th>Fan Status (1 - ON | 0 - OFF)</th>
+			<th>Water Pump Status (1 - ON | 0 - OFF)</th>
+		</tr>
+		
+		<tr>
+			<td>
+				<iframe width="450" height="260" style="border: 1px solid #cccccc;" src="https://thingspeak.com/channels/1693133/charts/1?bgcolor=%23ffffff&color=%23d62020&dynamic=true&results=20&type=line"></iframe>
+
+			</td>
+			<td>
+				<iframe width="450" height="260" style="border: 1px solid #cccccc;" src="https://thingspeak.com/channels/1693133/charts/2?bgcolor=%23ffffff&color=%23d62020&dynamic=true&results=60&type=line&update=15"></iframe>
+
+			</td>
+		</tr>
+
+		<tr>
+			<th>Water Level</th>
+			<th>Air Humidity</th>
+		</tr>
+		
+		<tr>
+			<td>
+				<iframe width="450" height="260" style="border: 1px solid #cccccc;" 
+				src="https://thingspeak.com/channels/1693133/charts/3?bgcolor=%23ffffff&color=%23d62020&dynamic=true&results=60&type=line"></iframe>
+
+			</td>
+			<td>
+				<iframe width="450" height="260" style="border: 1px solid #cccccc;" 
+				src="https://thingspeak.com/channels/1693133/charts/4?bgcolor=%23ffffff&color=%23d62020&dynamic=true&results=60&type=line&update=15"></iframe>
+
+			</td>
+		</tr>
+		
+		<tr>
+			<th>Air Temperature</th>
+			<th>Soil Humidity</th>
+		</tr>
+		
+		<tr>
+			<td>
+				<iframe width="450" height="260" style="border: 1px solid #cccccc;" 
+				src="https://thingspeak.com/channels/1693133/charts/5?bgcolor=%23ffffff&color=%23d62020&dynamic=true&results=60&type=line&update=15"></iframe>
+			</td>
+			<td>
+				<iframe width="450" height="260" style="border: 1px solid #cccccc;" 
+				src="https://thingspeak.com/channels/1693133/charts/6?bgcolor=%23ffffff&color=%23d62020&dynamic=true&results=60&type=line&update=15"></iframe>
+			</td>
+		</tr>
+		
+		<tr>
+			<th>Light sensor value (0 - Day | 1 - Night)</th>
+		</tr>
+		
+		<tr>
+			<td>
+				<iframe width="450" height="260" style="border: 1px solid #cccccc;" 
+				src="https://thingspeak.com/channels/1693133/charts/7?bgcolor=%23ffffff&color=%23d62020&dynamic=true&results=60&type=line&update=15"></iframe>
+			</td>
+		</tr>
+		
+	</div>
+	
+	<footer class="footer">
+		<center>
+			<h4 style="font-family: Helvetica;color: white;">&copy; 2022 | <a href="https://thingspeak.com/channels/1693133/">SmartFarmingSystemCloud</a> </h4>
+		</center>
+	</footer>
+
+    </body>
+    <script>
+		document.getElementById('D1-on').addEventListener('click', function() {
+				var url = "https://api.thingspeak.com/update?api_key=2V3J8Z6LQ7UQW14W&field1=1"
+				$.getJSON(url, function(data) {
+					console.log(data);
+				});
+		});
+		
+		document.getElementById('D1-off').addEventListener('click', function() {
+				var url = "http://api.thingspeak.com/update?api_key=2V3J8Z6LQ7UQW14W&field1=0"
+				$.getJSON(url, function(data) {
+					console.log(data);
+				});
+		});
+		
+		
+		document.getElementById('D2-on').addEventListener('click', function() {
+				var url = "http://api.thingspeak.com/update?api_key=04TU8CRPYU6WX09I&field1=1"
+				$.getJSON(url, function(data) {
+					console.log(data);
+				});
+		});
+		
+		document.getElementById('D2-off').addEventListener('click', function() {
+				var url = "http://api.thingspeak.com/update?api_key=04TU8CRPYU6WX09I&field1=0"
+				$.getJSON(url, function(data) {
+					console.log(data);
+				});
+		});
+	</script>
+</html>
